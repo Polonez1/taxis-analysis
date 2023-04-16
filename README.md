@@ -3,11 +3,11 @@
 3. Calculate correlation between tips and distance.
 4. Calculate tips propability by region
 
-
+```
 project/
 |----data/
 | |---raw/
 |---notebook/
 |---output/
 |---README.md
-|---requirements.txt
+|---requirements.txt```
