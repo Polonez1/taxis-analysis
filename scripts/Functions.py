@@ -4,6 +4,7 @@ import numpy as np
 from datetime import datetime
 import matplotlib.pyplot as plt
 
+
 def distance_group_column(df: pd.DataFrame)-> pd.DataFrame:
     "returned new column with distance group names"
     

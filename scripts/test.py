@@ -1,7 +1,11 @@
 import pandas as pd
-#import sys
-#sys.path.insert(0, "../scripts/")
-import MyFunction 
+import sys
+sys.path.insert(0, "..\\scripts\\")
+import Functions
+#import os
+
+#print(os.getcwd())
+
 
 def test_time_interval_groups():
     df = pd.DataFrame({"pickup": [pd.Timestamp('2019-03-23 00:30:09'), pd.Timestamp('2019-03-23 03:21:09'),
@@ -26,6 +30,6 @@ def test_time_interval_groups():
     df_expected.Name = '3h_interval'
     
     df_expected.Name = '3h_interval'
-    result = MyFunction.get_time_groups(df)
+    result = Functions.get_time_groups(df)
     pd.testing.assert_frame_equal(result, df_expected)
     
