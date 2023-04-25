@@ -82,7 +82,7 @@ def get_time_groups(df:pd.DataFrame) -> pd.DataFrame:
     return df
 
 def group_by_time_weekdays(df:pd.DataFrame) -> pd.DataFrame:
-    df = df.groupby(['week_day','3h_interval'], as_index= False).sum()
+    df = df.groupby(['week_day','3h_interval'], as_index= False).sum(numeric_only = True)
     return df
 
 def create_pivot_table(df:pd.DataFrame, values:str, index='week_day', columns='3h_interval') -> pd.DataFrame:
