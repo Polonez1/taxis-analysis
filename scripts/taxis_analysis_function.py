@@ -8,6 +8,32 @@ import matplotlib.pyplot as plt
 def load_dataset():
     return sns.load_dataset("taxis")
 
+def get_date_parameters(df:pd.DataFrame) -> pd.to_datetime:
+    
+        min_date = df['pickup'].min()
+        max_date = df['pickup'].max()
+        
+        return min_date, max_date
+    
+def filtered_by_date(df:pd.DataFrame, date_range:tuple = ()) -> pd.DataFrame:
+    """filtered df by date 
+    min date: 2019-02-28
+    max date: 2019-03-31
+    Args:
+        df (pd.DataFrame): df
+        date_range (tuple): ('start_date': yyyy-mm-dd, 'end_date': yyyy-mm-dd). Default date_range = ()
+    Returns:
+        pd.DataFrame: new dataframe
+    """
+    if date_range == ():
+        return df
+    else:
+        start_date = date_range[0]
+        end_date = date_range[1]
+        dt_range = (df['pickup'] >= start_date) & (df['pickup'] <= end_date)
+        filtered_df = df.loc[dt_range]
+        return filtered_df
+
 def distance_group_column(df: pd.DataFrame)-> pd.DataFrame:
     "returned new column with distance group names"
     
@@ -101,17 +127,25 @@ def calculate_passengers_fare_index(df: pd.DataFrame) -> pd.DataFrame:
     return df.assign(profit_by_passenger = lambda x: x['fare']/x['passengers'])
     
     
-def visualisation_main(df:pd.DataFrame, by:str, visual:bool = True)-> sns.heatmap or pd.DataFrame:
-    """by: [passengers, fare, profit_by_passenger, tip]
+def visualisation(df:pd.DataFrame, by:str, visual:bool = True, **kwargs)-> sns.heatmap or pd.DataFrame:
+    """get table or heatmap by passengers, fare, profit_by_passenger, tip
+    Args:
+        df (pd.DataFrame): df
+        by (str):  passengers, fare, profit_by_passenger, tip
+        visual (bool, optional): True: get sns.heatmap 
+                                False: get pd.DataFrame. Defaults to True.
+        kwargs: sns.heatmap parameters
+
+    Returns:
+        sns.heatmap or pd.DataFrame: _description_
     """
     pivot = create_pivot_table(df, values=by)
     if visual: 
-        visualisation_1 = visual_hot_map(pivot, title=f'by_{by}')
+        visualisation_1 = visual_hot_map(pivot, title=f'by_{by}', **kwargs)
         return visualisation_1
     else:
         return pivot
     
-
 def get_tips_sum(df: pd.DataFrame):
     return df.agg(
     tip_sum_by_cash=('tip', lambda x: x[df['payment'] == 'cash'].sum()),
