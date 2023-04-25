@@ -1,7 +1,7 @@
 import pandas as pd
 import sys
 sys.path.insert(0, "..\\scripts\\")
-import scripts.taxis_analysis_function as taxis_analysis_function
+import taxis_analysis_function as taxis_analysis_function
 #import os
 
 #print(os.getcwd())
