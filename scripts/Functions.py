@@ -5,6 +5,9 @@ from datetime import datetime
 import matplotlib.pyplot as plt
 
 
+def load_dataset():
+    return sns.load_dataset("taxis")
+
 def distance_group_column(df: pd.DataFrame)-> pd.DataFrame:
     "returned new column with distance group names"
     
