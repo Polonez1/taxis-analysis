@@ -1,9 +1,10 @@
 import matplotlib
-matplotlib.use('Qt5Agg')
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
-import sys
+import os
 
-sys.path.insert(0, "..\\scripts\\")
+import sys
+sys.path.append('.\\scripts\\')
 import taxis_analysis_function as MyFn
 import seaborn as sns
 
@@ -18,6 +19,6 @@ general_dataframe = (df.pipe(MyFn.add_week_day)
 .pipe(MyFn.calculate_passengers_fare_index)
 )
 
-MyFn.visualisation(general_dataframe, by = 'passengers', visual=True)
+MyFn.visualisation(general_dataframe, by='passengers', visual=True)
 
-plt.show()
+plt.show(block=True)
