@@ -19,6 +19,6 @@ general_dataframe = (df.pipe(MyFn.add_week_day)
 .pipe(MyFn.calculate_passengers_fare_index)
 )
 
-MyFn.visualisation(general_dataframe, by='passengers', visual=True)
+MyFn.show_heatmap(general_dataframe, by='passengers')
 
 plt.show(block=True)

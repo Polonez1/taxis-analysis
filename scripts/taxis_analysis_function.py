@@ -127,24 +127,19 @@ def calculate_passengers_fare_index(df: pd.DataFrame) -> pd.DataFrame:
     return df.assign(profit_by_passenger = lambda x: x['fare']/x['passengers'])
     
     
-def visualisation(df:pd.DataFrame, by:str, visual:bool = True, **kwargs)-> sns.heatmap or pd.DataFrame:
+def show_heatmap(df:pd.DataFrame, by:str, **kwargs)-> sns.heatmap:
     """get table or heatmap by passengers, fare, profit_by_passenger, tip
     Args:
         df (pd.DataFrame): df
         by (str):  passengers, fare, profit_by_passenger, tip
-        visual (bool, optional): True: get sns.heatmap 
-                                False: get pd.DataFrame. Defaults to True.
         kwargs: sns.heatmap parameters
-
     Returns:
         sns.heatmap or pd.DataFrame: _description_
     """
     pivot = create_pivot_table(df, values=by)
-    if visual: 
-        visualisation_1 = visual_hot_map(pivot, title=f'by_{by}', **kwargs)
-        return visualisation_1
-    else:
-        return pivot
+    visualisation_1 = visual_hot_map(pivot, title=f'by_{by}', **kwargs)
+    return visualisation_1
+
     
 def get_tips_sum(df: pd.DataFrame):
     return df.agg(
