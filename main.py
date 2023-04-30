@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 import sys
 
-sys.path.append("..\\scripts\\")
+sys.path.append(".\\scripts\\")
 import taxis_analysis as MyFn
 import seaborn as sns
 
@@ -23,6 +23,6 @@ general_dataframe = (
     .pipe(MyFn.calculate_passengers_fare_index)
 )
 
-MyFn.show_heatmap(general_dataframe, by="passengers")
+MyFn.show_heatmap(general_dataframe, by="tip")
 
 plt.show(block=True)
