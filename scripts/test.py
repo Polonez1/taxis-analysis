@@ -2,7 +2,7 @@ import pandas as pd
 import sys
 
 sys.path.insert(0, "..\\scripts\\")
-import taxis_analysis_function as taxis_analysis_function
+import taxis_analysis as taxis_analysis
 
 
 # print(os.getcwd())
@@ -63,5 +63,5 @@ def test_time_interval_groups():
     df_expected.Name = "3h_interval"
 
     df_expected.Name = "3h_interval"
-    result = taxis_analysis_function.get_time_groups(df)
+    result = taxis_analysis.get_time_groups(df)
     pd.testing.assert_frame_equal(result, df_expected)

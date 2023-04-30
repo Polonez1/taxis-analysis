@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 import sys
 
-sys.path.append(".\\scripts\\")
+sys.path.append("..\\scripts\\")
 import taxis_analysis as MyFn
 import seaborn as sns
 
