@@ -3,12 +3,12 @@ import matplotlib
 matplotlib.use("TkAgg")
 import matplotlib.pyplot as plt
 
-# import os
-
 import sys
 
 sys.path.append(".\\scripts\\")
 import taxis_analysis as MyFn
+
+
 import seaborn as sns
 
 sns.set(style="ticks", color_codes=True)
