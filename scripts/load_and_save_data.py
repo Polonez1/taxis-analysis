@@ -25,3 +25,9 @@ def load_data_frame(month: str, year: str = "2022") -> pd.DataFrame:
     df = pd.read_parquet(f"{path}{file_name}", engine="pyarrow")
 
     return df
+
+
+def load_zonemap_data():
+    path = "..\\data\\map_data\\taxi_zone.csv"
+    df = pd.read_csv(path)
+    return df
