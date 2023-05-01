@@ -1,20 +1,18 @@
 {
-    "payment_type": {
-        "type_id": [
-            1,
-            2,
-            3,
-            4,
-            5,
-            6
-        ],
-        "type": [
-            "Credit card",
-            "Cash",
-            "No charge",
-            "Dispute",
-            "Unknown",
-            "Voided trip"
-        ]
-    }
+    "type_id": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+    ],
+    "type": [
+        "Credit card",
+        "Cash",
+        "No charge",
+        "Dispute",
+        "Unknown",
+        "Voided trip"
+    ]
 }

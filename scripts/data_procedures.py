@@ -20,6 +20,14 @@ def rename_columns(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def join_zones(df: pd.DataFrame) -> pd.DataFrame:
+    """joining Borough and zone by pickon and dropoff values.
+
+    Args:
+        df (pd.DataFrame): general taxis table
+
+    Returns:
+        pd.DataFrame: new taxis table with zones
+    """
     zones_df = Data.load_zonemap_data()
 
     id_to_location = zones_df.set_index("LocationID")[["Borough", "Zone"]]
@@ -30,5 +38,14 @@ def join_zones(df: pd.DataFrame) -> pd.DataFrame:
     df = df.join(id_to_location, on="DOLocationID").rename(
         columns={"Borough": "dropoff_borough", "Zone": "dropoff_zone"}
     )
+
+    return df
+
+
+def join_payment_type(df: pd.DataFrame) -> pd.DataFrame:
+    payment_type = Data.load_payment_type_table()
+
+    id_to_type = payment_type.set_index("type_id")["type"]
+    df["payment"] = df["payment_type"].map(id_to_type)
 
     return df

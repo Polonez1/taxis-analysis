@@ -31,3 +31,9 @@ def load_zonemap_data():
     path = "..\\data\\map_data\\taxi_zone.csv"
     df = pd.read_csv(path)
     return df
+
+
+def load_payment_type_table():
+    path = "..\\data\\map_data\\payment_type.json"
+    df = pd.DataFrame(pd.read_json(path))
+    return df
