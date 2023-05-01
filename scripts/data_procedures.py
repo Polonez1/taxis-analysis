@@ -155,3 +155,26 @@ def create_pivot_table(
     return pd.pivot_table(df, values=values, index=index, columns=columns).reindex(
         weeks_labels
     )
+
+
+def get_clear_dataframe(month: str, **kwargs) -> pd.DataFrame:
+    """get dataframe to work after all data procedures
+
+    Args:
+        month (str): format: mm
+    Kwargs:
+        yeart (str): format: yyyy. Default: 2022
+
+    Returns:
+        pd.DataFrame: returned clear dataframe
+    """
+    df = Data.load_data_frame(month=month, **kwargs)
+
+    df = (
+        df.pipe(rename_columns)
+        .pipe(join_zones)
+        .pipe(join_payment_type)
+        .pipe(drop_unnecessary_columns)
+    )
+
+    return df
