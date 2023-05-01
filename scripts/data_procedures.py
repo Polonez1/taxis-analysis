@@ -9,7 +9,7 @@ def rename_columns(df: pd.DataFrame) -> pd.DataFrame:
             "tpep_dropoff_datetime": "dropoff",
             "passenger_count": "passenger",
             "trip_distance": "distance",
-            "fare_amount	": "fare",
+            "fare_amount": "fare",
             "tip_amount": "tip",
             "tolls_amount": "tolls",
             "total_amount": "total",
@@ -49,3 +49,109 @@ def join_payment_type(df: pd.DataFrame) -> pd.DataFrame:
     df["payment"] = df["payment_type"].map(id_to_type)
 
     return df
+
+
+def drop_unnecessary_columns(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.drop(
+        columns=[
+            "RatecodeID",
+            "store_and_fwd_flag",
+            "PULocationID",
+            "DOLocationID",
+            "payment_type",
+        ]
+    )
+    return df
+
+
+def filtered_by_date(df: pd.DataFrame, date_range: tuple = ()) -> pd.DataFrame:
+    """filtered df by date
+    min date: 2019-02-28
+    max date: 2019-03-31
+    Args:
+        df (pd.DataFrame): df
+        date_range (tuple): ('start_date': yyyy-mm-dd, 'end_date': yyyy-mm-dd). Default date_range = ()
+    Returns:
+        pd.DataFrame: new dataframe
+    """
+    if date_range == ():
+        return df
+    else:
+        start_date = date_range[0]
+        end_date = date_range[1]
+        dt_range = (df["pickup"] >= start_date) & (df["pickup"] <= end_date)
+        filtered_df = df.loc[dt_range]
+        return filtered_df
+
+
+def distance_group_column(df: pd.DataFrame) -> pd.DataFrame:
+    "returned new column with distance group names"
+
+    df["distance_group"] = pd.cut(
+        df["distance"],
+        bins=[0, 5, 15, float("inf")],
+        labels=["short", "medium", "long"],
+    )
+
+    return df
+
+
+def group_by_distance(df: pd.DataFrame) -> pd.DataFrame:
+    """group by distance and calculate profit"""
+    df = df.groupby(["distance_group"], as_index=False).agg(
+        count_summons=("pickup", "count"),
+        dist_avg=("distance", "mean"),
+        dist_total=("distance", "sum"),
+        dist_min=("distance", "min"),
+        dist_max=("distance", "max"),
+        fare=("fare", "sum"),
+        tips=("tip", "sum"),
+        tolls=("tolls", "sum"),
+        gas_expense=("gas_expense", "sum"),
+        auto_utilization_cost=("utilization_cost", "sum"),
+        hours_sum=("work_hours", "sum"),
+    )
+    return df
+
+
+def add_week_day(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.assign(week_day=lambda x: x["pickup"].dt.day_name())
+    return df
+
+
+def get_time_groups(df: pd.DataFrame) -> pd.DataFrame:
+    labels = []
+    for i in range(0, 24, 3):
+        time_label = "{:02d}-{:02d}".format(i, i + 3)
+        labels.append(time_label)
+
+    df["pickup_temp"] = pd.to_datetime(df["pickup"] + pd.Timedelta(hours=1))
+    df["3h_interval"] = pd.cut(
+        df["pickup_temp"].dt.hour, bins=list(range(0, 25, 3)), labels=labels
+    )
+    df = df.drop(columns="pickup_temp")
+
+    return df
+
+
+def group_by_time_weekdays(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.groupby(["week_day", "3h_interval"], as_index=False).sum(numeric_only=True)
+    return df
+
+
+def create_pivot_table(
+    df: pd.DataFrame, values: str, index="week_day", columns="3h_interval"
+) -> pd.DataFrame:
+    weeks_labels = [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+    ]
+
+    return pd.pivot_table(df, values=values, index=index, columns=columns).reindex(
+        weeks_labels
+    )

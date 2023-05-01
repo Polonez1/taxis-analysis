@@ -16,38 +16,6 @@ def get_date_parameters(df: pd.DataFrame) -> pd.to_datetime:
     return min_date, max_date
 
 
-def filtered_by_date(df: pd.DataFrame, date_range: tuple = ()) -> pd.DataFrame:
-    """filtered df by date
-    min date: 2019-02-28
-    max date: 2019-03-31
-    Args:
-        df (pd.DataFrame): df
-        date_range (tuple): ('start_date': yyyy-mm-dd, 'end_date': yyyy-mm-dd). Default date_range = ()
-    Returns:
-        pd.DataFrame: new dataframe
-    """
-    if date_range == ():
-        return df
-    else:
-        start_date = date_range[0]
-        end_date = date_range[1]
-        dt_range = (df["pickup"] >= start_date) & (df["pickup"] <= end_date)
-        filtered_df = df.loc[dt_range]
-        return filtered_df
-
-
-def distance_group_column(df: pd.DataFrame) -> pd.DataFrame:
-    "returned new column with distance group names"
-
-    df["distance_group"] = pd.cut(
-        df["distance"],
-        bins=[0, 5, 15, float("inf")],
-        labels=["short", "medium", "long"],
-    )
-
-    return df
-
-
 def calculate_gasoline_consumption(
     df: pd.DataFrame, gasoline_consuption=5, gasoline_price=1.4
 ) -> pd.DataFrame:
@@ -62,24 +30,6 @@ def calculate_auto_utilization(df: pd.DataFrame) -> pd.DataFrame:
     auto_utilization_cost = 215
     df = df.assign(
         utilization_cost=lambda x: auto_utilization_cost * x["distance"] / 1000
-    )
-    return df
-
-
-def group_by_distance(df: pd.DataFrame) -> pd.DataFrame:
-    """group by distance and calculate profit"""
-    df = df.groupby(["distance_group"], as_index=False).agg(
-        count_summons=("pickup", "count"),
-        dist_avg=("distance", "mean"),
-        dist_total=("distance", "sum"),
-        dist_min=("distance", "min"),
-        dist_max=("distance", "max"),
-        fare=("fare", "sum"),
-        tips=("tip", "sum"),
-        tolls=("tolls", "sum"),
-        gas_expense=("gas_expense", "sum"),
-        auto_utilization_cost=("utilization_cost", "sum"),
-        hours_sum=("work_hours", "sum"),
     )
     return df
 
