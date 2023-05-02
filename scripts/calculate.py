@@ -46,7 +46,7 @@ def calculate_total_profit(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def calculate_passengers_fare_index(df: pd.DataFrame) -> pd.DataFrame:
-    return df.assign(profit_by_passenger=lambda x: x["fare"] / x["passengers"])
+    return df.assign(profit_by_passenger=lambda x: x["fare"] / x["passenger"])
 
 
 def get_tips_sum(df: pd.DataFrame):
