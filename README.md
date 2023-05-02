@@ -6,7 +6,11 @@ project/
 |---README.md
 |---requirements.txt
 ```
-instaliations
+instaliation:
+
+Download dataset to your local repository:
+
+```python run.py --run_visualisation```
 
 
 
