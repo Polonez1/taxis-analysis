@@ -12,6 +12,11 @@ import data_procedures as DPro
 import calculate as calc
 import visualisations as vs
 
+print("input month( format: mm)")
+month = input()
+print("input by: passenger, tip, fare, profit_by_passenger")
+by = input()
+
 df = Data.load_data_frame(month="03")
 df = (
     df.pipe(DPro.rename_columns)
@@ -31,5 +36,5 @@ general_dataframe = (
 )
 
 
-vs.show_heatmap(general_dataframe, by="passenger")
+vs.show_heatmap(general_dataframe, by=f"{by}")
 plt.show(block=True)
