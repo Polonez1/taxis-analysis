@@ -67,19 +67,4 @@ def show_profit_table(month: str, date_range: tuple = ()):
         .pipe(calc.calculate_profit_by_hour)
     )
 
-    fig, ax = plt.subplots(figsize=(20, 6))
-    # fig.patch.set_visible(False)
-    ax.axis("off")
-    ax.axis("tight")
-    table = ax.table(
-        cellText=distance_profit_analysis.values,
-        colLabels=distance_profit_analysis.columns,
-        loc="center",
-        cellLoc="center",
-    )
-    table.auto_set_font_size(False)
-    table.set_fontsize(6)
-    ax.set_title("Profit table by hour")
-    plt.tight_layout()
-
-    plt.show()
+    vs.show_profit_table(distance_profit_analysis)
