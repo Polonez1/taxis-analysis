@@ -4,10 +4,10 @@ import plotly.figure_factory as ff
 
 matplotlib.use("TkAgg")
 import matplotlib.pyplot as plt
-
 import sys
 
 sys.path.append(".\\scripts\\")
+
 import load_and_save_data as Data
 import data_procedures as DPro
 import calculate as calc
