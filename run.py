@@ -20,7 +20,7 @@ if __name__ == "__main__":
             "Filtered by date range (if pass, press Enter), Date range format: (yyyy-mm-dd, yyyy-mm-dd)"
         )
         date_range = input()
-        logging.info("Data load...please wait")
+
         main.show_heatmap(month=month, by=by, date_range=())
     elif args.run_table:
         print("input month(Format: mm)")
@@ -29,7 +29,7 @@ if __name__ == "__main__":
             "Filtered by date range (if pass, press Enter), Date range format: (yyyy-mm-dd, yyyy-mm-dd)"
         )
         date_range = input()
-        logging.info("Data load...please wait")
+
         main.show_profit_table(month=month, date_range=())
     else:
         print("Invalid function name")
