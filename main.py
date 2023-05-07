@@ -1,6 +1,7 @@
 import matplotlib
 import seaborn as sns
 import plotly.figure_factory as ff
+import logging as log
 
 matplotlib.use("TkAgg")
 import matplotlib.pyplot as plt
@@ -22,6 +23,9 @@ def show_heatmap(month: str, by: str, date_range: tuple = (), **kwargs):
         month (str): format mm
         by (str): tip, passenger, fare, profit_by_passenger
     """
+    logger = log.getLogger()
+    logger.setLevel(log.INFO)
+
     df = Data.load_data_frame(month=month)
     df = (
         df.pipe(DPro.rename_columns)
@@ -41,10 +45,13 @@ def show_heatmap(month: str, by: str, date_range: tuple = (), **kwargs):
     )
 
     vs.show_heatmap(general_dataframe, by=f"{by}", **kwargs)
+    logger.info(f"Data lenght: {len(df)}")
     plt.show(block=True)
 
 
 def show_profit_table(month: str, date_range: tuple = ()):
+    logger = log.getLogger()
+    logger.setLevel(log.INFO)
     df = Data.load_data_frame(month=month)
 
     df = (
@@ -66,5 +73,5 @@ def show_profit_table(month: str, date_range: tuple = ()):
         .pipe(calc.calculate_total_profit)
         .pipe(calc.calculate_profit_by_hour)
     )
-
+    logger.info(f"Data lenght: {len(df)}")
     vs.show_profit_table(distance_profit_analysis)
