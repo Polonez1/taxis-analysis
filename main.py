@@ -36,6 +36,7 @@ def show_heatmap(month: str, by: str, date_range: tuple = (), **kwargs):
 
     if date_range != ():
         df = DPro.filtered_by_date(df, date_range=date_range)
+        logger.info(f"Filtered date range: {date_range}")
 
     general_dataframe = (
         df.pipe(DPro.add_week_day)
@@ -63,6 +64,7 @@ def show_profit_table(month: str, date_range: tuple = ()):
 
     if date_range != ():
         df = DPro.filtered_by_date(df, date_range=date_range)
+        logger.info(f"Filtered date range: {date_range}")
 
     distance_profit_analysis = (
         df.pipe(DPro.distance_group_column)
