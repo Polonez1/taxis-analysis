@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import sys
 
 sys.path.append(".\\scripts\\")
@@ -17,8 +18,7 @@ df = (
     .pipe(DPro.drop_unnecessary_columns)
 )
 
-# df = DPro.filtered_by_date(df, date_range=("2022-01-01","2022-01-02"))
-df = DPro.distance_group_column(df)
+# df = DPro.distance_group_column(df)
 
 distance_profit_analysis = (
     df.pipe(DPro.distance_group_column)
@@ -30,4 +30,18 @@ distance_profit_analysis = (
     .pipe(calc.calculate_profit_by_hour)
 )
 
-print(tabulate(distance_profit_analysis, headers="keys", tablefmt="pretty"))
+
+fig, ax = plt.subplots(figsize=(20, 6))
+ax.axis("off")
+ax.axis("tight")
+table = ax.table(
+    cellText=distance_profit_analysis.values,
+    colLabels=distance_profit_analysis.columns,
+    loc="center",
+    cellLoc="center",
+)
+table.auto_set_font_size(False)
+table.set_fontsize(6)
+plt.tight_layout()
+
+plt.show()
