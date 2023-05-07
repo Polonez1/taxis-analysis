@@ -84,5 +84,6 @@ def show_profit_table(month: str, date_range: tuple = ()):
     plt.show()
 
 
-if __name__ == "__main__":
-    show_profit_table(month="03")
+# if __name__ == "__main__":
+#    show_profit_table(month="03")
+#
