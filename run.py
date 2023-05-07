@@ -1,9 +1,6 @@
 import argparse
 import main
-import logging as log
-
-logger = log.getLogger()
-logger.setLevel(log.INFO)
+import logging
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="get data visualisation")
@@ -23,7 +20,7 @@ if __name__ == "__main__":
             "Filtered by date range (if pass, press Enter), Date range format: (yyyy-mm-dd, yyyy-mm-dd)"
         )
         date_range = input()
-        # logger.info(f"Data load...please wait")
+        logging.info(f"Data load...please wait")
         main.show_heatmap(month=month, by=by, date_range=())
     elif args.run_table:
         print("input month(Format: mm)")
@@ -32,7 +29,7 @@ if __name__ == "__main__":
             "Filtered by date range (if pass, press Enter), Date range format: (yyyy-mm-dd, yyyy-mm-dd)"
         )
         date_range = input()
-        # logger.info(f"Data load...please wait")
+        logging.info(f"Data load...please wait")
         main.show_profit_table(month=month, date_range=())
     else:
-        log.warning("Wrong command")
+        logging.warning("Wrong command")
