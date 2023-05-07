@@ -9,6 +9,12 @@ project/
 instaliation:
 
 Download project to your local repository.
+- open cmd or powershell in you folder
+- enter this command in cmd or powershell
+```git clone https://github.com/Polonez1/taxis-analysis "taxis-analysis"```
+
+install all requirements
+```pip install -r requirements.txt```
 
 Run cmd or powershell in the folder.
 
