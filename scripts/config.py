@@ -1,4 +1,4 @@
-import logging as log
+import sys
+import logging
 
-logger = log.getLogger()
-logger.setLevel(log.INFO)
+log = logging.basicConfig(stream=sys.stdout, level=logging.INFO)

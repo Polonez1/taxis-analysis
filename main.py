@@ -1,6 +1,7 @@
 import matplotlib
 import seaborn as sns
 import plotly.figure_factory as ff
+import logging
 
 
 matplotlib.use("TkAgg")
@@ -24,7 +25,8 @@ def show_heatmap(month: str, by: str, date_range: tuple = (), **kwargs):
         month (str): format mm
         by (str): tip, passenger, fare, profit_by_passenger
     """
-    log = config.logger
+    config.log
+
     df = Data.load_data_frame(month=month)
     df = (
         df.pipe(DPro.rename_columns)
@@ -35,7 +37,7 @@ def show_heatmap(month: str, by: str, date_range: tuple = (), **kwargs):
 
     if date_range != ():
         df = DPro.filtered_by_date(df, date_range=date_range)
-        log.info(f"Filtered date range: {date_range}")
+        logging.info(f"Filtered date range: {date_range}")
 
     general_dataframe = (
         df.pipe(DPro.add_week_day)
@@ -45,12 +47,12 @@ def show_heatmap(month: str, by: str, date_range: tuple = (), **kwargs):
     )
 
     vs.show_heatmap(general_dataframe, by=f"{by}", **kwargs)
-    log.info(f"Data lenght: {len(df)}")
+    logging.info(f"Data lenght: {len(df)}")
     plt.show(block=True)
 
 
 def show_profit_table(month: str, date_range: tuple = ()):
-    log = config.logger
+    config.log
     df = Data.load_data_frame(month=month)
 
     df = (
@@ -62,7 +64,7 @@ def show_profit_table(month: str, date_range: tuple = ()):
 
     if date_range != ():
         df = DPro.filtered_by_date(df, date_range=date_range)
-        log.info(f"Filtered date range: {date_range}")
+        logging.info(f"Filtered date range: {date_range}")
 
     distance_profit_analysis = (
         df.pipe(DPro.distance_group_column)
@@ -73,5 +75,5 @@ def show_profit_table(month: str, date_range: tuple = ()):
         .pipe(calc.calculate_total_profit)
         .pipe(calc.calculate_profit_by_hour)
     )
-    log.info(f"Data lenght: {len(df)}")
+    logging.info(f"Data lenght: {len(df)}")
     vs.show_profit_table(distance_profit_analysis)
