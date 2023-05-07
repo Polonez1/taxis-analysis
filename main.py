@@ -1,5 +1,6 @@
 import matplotlib
 import seaborn as sns
+import plotly.figure_factory as ff
 
 matplotlib.use("TkAgg")
 import matplotlib.pyplot as plt
@@ -66,6 +67,7 @@ def show_profit_table(month: str, date_range: tuple = ()):
     )
 
     fig, ax = plt.subplots(figsize=(20, 6))
+    # fig.patch.set_visible(False)
     ax.axis("off")
     ax.axis("tight")
     table = ax.table(
@@ -76,6 +78,11 @@ def show_profit_table(month: str, date_range: tuple = ()):
     )
     table.auto_set_font_size(False)
     table.set_fontsize(6)
+    ax.set_title("Profit table by hour")
     plt.tight_layout()
 
     plt.show()
+
+
+if __name__ == "__main__":
+    show_profit_table(month="03")

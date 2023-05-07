@@ -8,9 +8,16 @@ project/
 ```
 instaliation:
 
-Download dataset to your local repository:
+Download project to your local repository.
 
+Run cmd or powershell in the folder.
+
+Commands:
+Run data heatmap visualisation
 ```python run.py --run_visualisation```
+
+Run profit table
+```python run.py --run_table```
 
 
 
