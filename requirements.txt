@@ -1,7 +1,7 @@
-pip install pandas
-pip install seaborn
-pip install matplotlib
-pip install tabulate
-pip install plotly
-pip install datetime
-pip install logging
+pandas
+seaborn
+matplotlib
+tabulate
+plotly
+datetime
+logging
