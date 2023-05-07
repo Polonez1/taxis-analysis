@@ -4,6 +4,7 @@ import plotly.figure_factory as ff
 
 matplotlib.use("TkAgg")
 import matplotlib.pyplot as plt
+
 import sys
 
 sys.path.append(".\\scripts\\")
@@ -82,8 +83,3 @@ def show_profit_table(month: str, date_range: tuple = ()):
     plt.tight_layout()
 
     plt.show()
-
-
-# if __name__ == "__main__":
-#    show_profit_table(month="03")
-#
