@@ -3,6 +3,7 @@ import pandas as pd
 import os
 
 import data_validation
+import category_and_dtypes as cat
 
 
 def get_data_files_list() -> list:
@@ -30,6 +31,7 @@ def load_data_frame(month: str, year: str = "2022") -> pd.DataFrame:
     file_name = f"yellow_tripdata_{year}-{month}.parquet"
     path = ".\\data\\yellow_trip_data_2022\\"
     df = pd.read_parquet(f"{path}{file_name}", engine="pyarrow")
+    df = cat.change_dtypes_YellowData(df)
     df = validate_Yellow_taxis_analysis(df)
 
     return df

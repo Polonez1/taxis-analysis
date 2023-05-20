@@ -5,9 +5,6 @@ sys.path.insert(0, "..\\scripts\\")
 import taxis_analysis as taxis_analysis
 
 
-# print(os.getcwd())
-
-
 def test_time_interval_groups():
     df = pd.DataFrame(
         {

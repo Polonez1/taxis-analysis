@@ -47,6 +47,7 @@ def show_heatmap(month: str, by: str, date_range: tuple = (), **kwargs):
     )
 
     vs.show_heatmap(general_dataframe, by=f"{by}", **kwargs)
+    logging.info(f"Data shape: {df.shape}")
     logging.info(f"Data lenght: {len(general_dataframe)}")
 
     plt.show(block=True)
