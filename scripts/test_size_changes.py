@@ -63,8 +63,8 @@ def memory_usage_test(df: pd.DataFrame):
 
 def compramison_memory_usage(memory1, memory2):
     info = f"""
-    1 table memory usage: {memory1:.2f} MB\n
-    2 table memory usage: {memory2:.2f} MB\n
+    clear_data table memory usage: {memory1:.2f} MB\n
+    after dtypes changes table memory usage: {memory2:.2f} MB\n
     """
     logging.info(info)
 

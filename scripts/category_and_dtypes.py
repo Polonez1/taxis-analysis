@@ -26,3 +26,16 @@ def change_dtypes_YellowData(df: pd.DataFrame):
     df[columns_to_int16] = df[columns_to_int16].astype(np.int16)
 
     return df
+
+
+def category_data(df):
+    columns_to_category = [
+        "VendorID",
+        "passenger_count",
+        "store_and_fwd_flag",
+        "payment_type",
+    ]
+
+    df[columns_to_category] = df[columns_to_category].astype("category")
+
+    return df

@@ -37,6 +37,7 @@ def load_data_frame(month: str, year: str = "2022") -> pd.DataFrame:
     df = pd.read_parquet(f"{path}{file_name}", engine="pyarrow")
     df = cat.change_dtypes_YellowData(df)
     df = validate_Yellow_taxis_analysis(df)
+    df = cat.category_data(df)
     logging.info(f"\nTransform dtype: Complete\n Validate: Complete\n")
     total_memory_usage = df.memory_usage(deep=True).sum() / (1024 * 1024)
     logging.info(f"DataFrame size: {total_memory_usage:.2f} MB")
