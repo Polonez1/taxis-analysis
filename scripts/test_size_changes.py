@@ -2,10 +2,8 @@ import pandas as pd
 import logging
 import psutil
 
-import load_and_save_data as data
 import category_and_dtypes as cat
-import data_procedures as DPro
-import calculate as calc
+
 
 import config
 
@@ -76,6 +74,3 @@ def test_memory_usage():
     memory1 = memory_usage_test(clear_data)
     memory2 = memory_usage_test(new_data)
     compramison_memory_usage(memory1=memory1, memory2=memory2)
-
-
-test_memory_usage()
