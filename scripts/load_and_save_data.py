@@ -2,12 +2,19 @@ import seaborn as sns
 import pandas as pd
 import os
 
+import data_validation
+
 
 def get_data_files_list() -> list:
     path = ".\\data\\yellow_trip_data_2022\\"
     files_list = os.listdir(path)
 
     return files_list
+
+
+def validate_Yellow_taxis_analysis(df):
+    df = data_validation.transform_YellowTripData(df)
+    return df
 
 
 def load_data_frame(month: str, year: str = "2022") -> pd.DataFrame:
@@ -23,6 +30,7 @@ def load_data_frame(month: str, year: str = "2022") -> pd.DataFrame:
     file_name = f"yellow_tripdata_{year}-{month}.parquet"
     path = ".\\data\\yellow_trip_data_2022\\"
     df = pd.read_parquet(f"{path}{file_name}", engine="pyarrow")
+    df = validate_Yellow_taxis_analysis(df)
 
     return df
 
