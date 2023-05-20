@@ -26,22 +26,24 @@ def data_after_dtypes_changes(df):
     return df
 
 
-def main_process(df: pd.DataFrame):
-    df = (
-        df.pipe(DPro.rename_columns)
-        .pipe(DPro.join_zones)
-        .pipe(DPro.join_payment_type)
-        .pipe(DPro.drop_unnecessary_columns)
+def test_calculations(df: pd.DataFrame):
+    df = df[
+        [
+            "trip_distance",
+            "fare_amount",
+            "extra",
+            "mta_tax",
+            "tip_amount",
+            "tolls_amount",
+        ]
+    ]
+    # I intentionally use the apply function to increase computational load
+    df = df.apply(
+        lambda x: x[["extra", "mta_tax", "tip_amount", "tolls_amount", "fare_amount"]]
+        / x["trip_distance"],
+        axis=1,
     )
-
-    general_dataframe = (
-        df.pipe(DPro.add_week_day)
-        .pipe(DPro.get_time_groups)
-        .pipe(DPro.group_by_time_weekdays)
-        .pipe(calc.calculate_passengers_fare_index)
-    )
-
-    return general_dataframe
+    return df
 
 
 def get_dataframes():
@@ -53,19 +55,27 @@ def get_dataframes():
 
 def memory_usage_test(df: pd.DataFrame):
     before_memory = psutil.Process().memory_info().rss
-    df = main_process(df)
+    df = test_calculations(df.head(10000))
     after_memory = psutil.Process().memory_info().rss
     memory_usage = (after_memory - before_memory) / (1024 * 1024)
     return memory_usage
 
 
-def compramison_memory_usage():
-    df1, df2 = get_dataframes()
-    memory1 = memory_usage_test(df1)
-    memory2 = memory_usage_test(df2)
-
+def compramison_memory_usage(memory1, memory2):
     info = f"""
     1 table memory usage: {memory1:.2f} MB\n
     2 table memory usage: {memory2:.2f} MB\n
     """
     logging.info(info)
+
+
+def test_memory_usage():
+    clear_data = load_data_frame()
+    new_data = data_after_dtypes_changes(clear_data)
+
+    memory1 = memory_usage_test(clear_data)
+    memory2 = memory_usage_test(new_data)
+    compramison_memory_usage(memory1=memory1, memory2=memory2)
+
+
+test_memory_usage()
