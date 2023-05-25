@@ -11,7 +11,7 @@ config.log
 
 
 def get_data_files_list() -> list:
-    path = ".\\data\\yellow_trip_data_2022\\"
+    path = config.INPUT_DATA_PATH
     files_list = os.listdir(path)
 
     return files_list
@@ -33,7 +33,7 @@ def load_data_frame(month: str, year: str = "2022") -> pd.DataFrame:
         _type_: pd.DataFrame
     """
     file_name = f"yellow_tripdata_{year}-{month}.parquet"
-    path = ".\\data\\yellow_trip_data_2022\\"
+    path = config.INPUT_DATA_PATH
     df = pd.read_parquet(f"{path}{file_name}", engine="pyarrow")
     df = cat.change_dtypes_YellowData(df)
     df = validate_Yellow_taxis_analysis(df)
@@ -46,12 +46,12 @@ def load_data_frame(month: str, year: str = "2022") -> pd.DataFrame:
 
 
 def load_zonemap_data():
-    path = ".\\data\\map_data\\taxi_zone.csv"
+    path = config.MAP_TAXIS_ZONE_FILE
     df = pd.read_csv(path)
     return df
 
 
 def load_payment_type_table():
-    path = ".\\data\\map_data\\payment_type.json"
+    path = config.PAYMENT_TYPE_FILE
     df = pd.DataFrame(pd.read_json(path))
     return df
