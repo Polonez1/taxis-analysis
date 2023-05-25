@@ -20,6 +20,7 @@ def load_data_frame(month: str = "01", year: str = "2022") -> pd.DataFrame:
 
 def data_after_dtypes_changes(df):
     df = cat.change_dtypes_YellowData(df)
+    df = cat.category_data(df)
 
     return df
 
@@ -72,5 +73,10 @@ def test_memory_usage():
     new_data = data_after_dtypes_changes(clear_data)
 
     memory1 = memory_usage_test(clear_data)
-    memory2 = memory_usage_test(new_data)
-    compramison_memory_usage(memory1=memory1, memory2=memory2)
+    # memory2 = memory_usage_test(clear_data)
+    # compramison_memory_usage(memory1=memory1, memory2=memory2)
+    info = f"""clear_data table memory usage: {memory1:.2f}"""
+    print(info)
+
+
+test_memory_usage()

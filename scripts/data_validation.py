@@ -32,6 +32,9 @@ class InputSchema:
         congestion_surcharge: Series[float] = pa.Field(coerce=True, nullable=True)
         airport_fee: Series[float] = pa.Field(coerce=True, nullable=True)
 
+        # InterSchema pandera
+        # config
+
 
 class OutputSchema:
     class YellowTripData(InputSchema.YellowTripData):
