@@ -1,3 +1,2 @@
 yellow_tripdata_2019-03.parquet filter=lfs diff=lfs merge=lfs -text
-
 *.txt -text
