@@ -8,9 +8,11 @@ import data_procedures as DPro
 import pandas as pd
 import numpy as np
 import seaborn as sns
-
+import logging
 
 import config
+
+config.log
 
 
 def add_data_type(df: pd.DataFrame, data_source):
@@ -33,7 +35,6 @@ def get_full_original_data():
     yellow_df = load_2019_03_TripData(
         data_path=config.YELLOW_FILE, data_source="yellow"
     )
-
     green_data = rename_columns(green_df, data_source="green")
     yellow_data = rename_columns(yellow_df, data_source="yellow")
 
@@ -75,15 +76,15 @@ def rename_columns(df: pd.DataFrame, data_source: str):
     return df
 
 
-def compare_data_types(df1: pd.DataFrame, df2: pd.DataFrame) -> bool:
-    types_df1 = df1.dtypes
-    types_df2 = df2.dtypes
+def select_data_range(df: pd.DataFrame):
+    sns_df = load_seaborn_trip_data()
 
-    return (types_df1 == types_df2).all()
+    min_date = sns_df["pickup"].min()
+    max_date = sns_df["pickup"].max()
 
+    df = df.loc[(df["pickup"] >= min_date) & (df["pickup"] <= max_date)]
 
-def compare_headers(df1: pd.DataFrame, df2: pd.DataFrame) -> bool:
-    return (df1.columns == df2.columns).all()
+    return df
 
 
 def compare_dataframe(df: pd.DataFrame, df1: pd.DataFrame) -> int:
@@ -92,19 +93,28 @@ def compare_dataframe(df: pd.DataFrame, df1: pd.DataFrame) -> int:
     return num_equal_rows
 
 
-def test_main():
+def compare_tables():
     original_data = get_full_original_data()
 
     sns_data = load_seaborn_trip_data()
     sns_data["passengers"] = sns_data["passengers"].astype("float64")
     sns_data["payment"] = sns_data["payment"].str.lower()
 
-    new_df = original_data.pipe(DPro.join_payment_type).pipe(DPro.join_zones)
+    new_df = (
+        original_data.pipe(DPro.join_payment_type)
+        .pipe(DPro.join_zones)
+        .pipe(select_data_range)
+    )
     new_df["payment"] = new_df["payment"].str.lower()
 
     df = new_df[sns_data.columns]
 
-    # result = compare_dataframe(df, sns_data)
+    types = (df.dtypes == sns_data.dtypes).all()
+    headers = (df.columns == sns_data.columns).all()
+    congruent_data = compare_dataframe(df, sns_data)
+    miss_data = len(sns_data) - congruent_data
 
-    # return result
-    return df
+    logging.info(f"dtypes: {types}")
+    logging.info(f"columns: {headers}")
+    logging.info(f"congruent data: {congruent_data}")
+    logging.info(f"missed data: {miss_data}")
