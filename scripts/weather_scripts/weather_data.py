@@ -31,6 +31,3 @@ def get_wmo_code_table():
         print(f"Response Error: {response.status_code} - {response.text}")
 
     return df_list
-
-
-#
