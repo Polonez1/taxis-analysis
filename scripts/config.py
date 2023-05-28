@@ -16,5 +16,8 @@ PAYMENT_TYPE_FILE = ".\\data\\map_data\\payment_type.json"
 
 
 # path to test
-GREEN_FILE = ".\\data\\trip_data_201903_to_test\\green_tripdata_2019-03.parquet"
-YELLOW_FILE = ".\\data\\trip_data_201903_to_test\\yellow_tripdata_2019-03.parquet"
+GREEN_FILE = ".\\data\\trip_data_2019_03\\green_tripdata_2019-03.parquet"
+YELLOW_FILE = ".\\data\\trip_data_2019_03\\yellow_tripdata_2019-03.parquet"
+
+GREEN_FILE1 = ".\\data\\trip_data_2019_03\\green_tripdata_2019-02.parquet"
+YELLOW_FILE1 = ".\\data\\trip_data_2019_03\\yellow_tripdata_2019-02.parquet"
