@@ -25,7 +25,8 @@ Run data heatmap visualisation
 Run profit table
 ```python run.py --run_table```
 
-
+Run bar visualisation by weather and passenger
+```python run.py --run_weather_bar```
 
 
 Goals:

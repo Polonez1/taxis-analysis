@@ -8,6 +8,9 @@ if __name__ == "__main__":
         "--run_visualisation", action="store_true", help="run data visualisation"
     )
     parser.add_argument("--run_table", action="store_true", help="run profit table")
+    parser.add_argument(
+        "--run_weather_bar", action="store_true", help="run bar visualisation"
+    )
 
     args = parser.parse_args()
 
@@ -31,5 +34,15 @@ if __name__ == "__main__":
         date_range = input()
         logging.info(f"Data load...please wait")
         main.show_profit_table(month=month, date_range=())
+    elif args.run_weather_bar:
+        print("input month(Format: mm)")
+        month = input()
+        print(
+            "Filtered by date range (if pass, press Enter), Date range format: (yyyy-mm-dd, yyyy-mm-dd)"
+        )
+        date_range = input()
+        logging.info(f"Data load...please wait")
+        main.show_weather_visualisation(month=month, date_range=())
+
     else:
         logging.warning("Wrong command")
