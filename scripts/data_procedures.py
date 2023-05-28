@@ -1,5 +1,6 @@
 import pandas as pd
 import load_and_save_data as Data
+from datetime import datetime
 
 
 def rename_columns(df: pd.DataFrame) -> pd.DataFrame:
@@ -157,6 +158,29 @@ def create_pivot_table(
     )
 
 
+def add_date_column(df: pd.DataFrame):
+    df = df.assign(date=lambda x: pd.to_datetime(x["pickup"]).dt.date.astype("str"))
+
+    return df
+
+
+def join_weathercode(df: pd.DataFrame):
+    weather_df = Data.load_weather_data()
+    id_to_type = weather_df.set_index("time")["weathercode"]
+    df["weatercode"] = df["date"].map(id_to_type)
+
+    return df
+
+
+def join_weather_name(df: pd.DataFrame):
+    weather = Data.load_weather_name()
+
+    id_to_weathercode = weather.set_index("Code figure")["weather"]
+    df["weather"] = df["weatercode"].map(id_to_weathercode)
+
+    return df
+
+
 def get_clear_dataframe(month: str, **kwargs) -> pd.DataFrame:
     """get dataframe to work after all data procedures
 
@@ -175,6 +199,9 @@ def get_clear_dataframe(month: str, **kwargs) -> pd.DataFrame:
         .pipe(join_zones)
         .pipe(join_payment_type)
         .pipe(drop_unnecessary_columns)
+        .pipe(add_date_column)
+        .pipe(join_weathercode)
+        .pipe(join_weather_name)
     )
 
     return df

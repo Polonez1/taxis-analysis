@@ -2,6 +2,7 @@ import seaborn as sns
 import pandas as pd
 import os
 import logging
+import json
 
 import data_validation
 import category_and_dtypes as cat
@@ -55,3 +56,17 @@ def load_payment_type_table():
     path = config.PAYMENT_TYPE_FILE
     df = pd.DataFrame(pd.read_json(path))
     return df
+
+
+def load_weather_data():
+    with open(".\\data\\map_data\\daily_weather.json", "r") as file:
+        data = json.load(file)
+
+        return pd.DataFrame(data)
+
+
+def load_weather_name():
+    with open(".\\data\\map_data\\wmo_code.csv", "r") as file:
+        data = pd.read_csv(file)
+
+        return data
