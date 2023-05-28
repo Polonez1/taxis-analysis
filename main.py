@@ -37,7 +37,7 @@ def show_heatmap(month: str, by: str, date_range: tuple = (), **kwargs):
         df.pipe(DPro.add_week_day)
         .pipe(DPro.get_time_groups)
         .pipe(DPro.group_by_time_weekdays)
-        # .pipe(calc.calculate_passengers_fare_index)
+        .pipe(calc.calculate_passengers_fare_index)
     )
 
     vs.show_heatmap(general_dataframe, by=f"{by}", **kwargs)
