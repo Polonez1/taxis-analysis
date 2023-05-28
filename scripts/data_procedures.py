@@ -136,7 +136,10 @@ def get_time_groups(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def group_by_time_weekdays(df: pd.DataFrame) -> pd.DataFrame:
-    df = df.groupby(["week_day", "3h_interval"], as_index=False).sum(numeric_only=True)
+    columns_to_sum = ["tip", "fare", "passenger"]
+    df = df.groupby(["week_day", "3h_interval"], as_index=False)[columns_to_sum].sum(
+        numeric_only=False
+    )
     return df
 
 

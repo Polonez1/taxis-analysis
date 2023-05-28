@@ -27,13 +27,7 @@ def show_heatmap(month: str, by: str, date_range: tuple = (), **kwargs):
     """
     config.log
 
-    df = Data.load_data_frame(month=month)
-    df = (
-        df.pipe(DPro.rename_columns)
-        .pipe(DPro.join_zones)
-        .pipe(DPro.join_payment_type)
-        .pipe(DPro.drop_unnecessary_columns)
-    )
+    df = DPro.get_clear_dataframe(month=month)
 
     if date_range != ():
         df = DPro.filtered_by_date(df, date_range=date_range)
@@ -57,12 +51,7 @@ def show_profit_table(month: str, date_range: tuple = ()):
     config.log
     df = Data.load_data_frame(month=month)
 
-    df = (
-        df.pipe(DPro.rename_columns)
-        .pipe(DPro.join_zones)
-        .pipe(DPro.join_payment_type)
-        .pipe(DPro.drop_unnecessary_columns)
-    )
+    df = DPro.get_clear_dataframe(month=month)
 
     if date_range != ():
         df = DPro.filtered_by_date(df, date_range=date_range)

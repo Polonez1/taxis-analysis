@@ -31,7 +31,6 @@ def change_dtypes_YellowData(df: pd.DataFrame):
 def category_data(df):
     columns_to_category = [
         "VendorID",
-        "passenger_count",
         "store_and_fwd_flag",
         "payment_type",
     ]
