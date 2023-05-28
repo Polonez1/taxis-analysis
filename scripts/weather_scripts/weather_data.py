@@ -32,5 +32,3 @@ def get_wmo_code_table():
 
     return df_list
 
-
-#
