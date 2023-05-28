@@ -8,7 +8,7 @@ def weather_daily_data():
     json_ob = weather_data.get_weather_data()
 
     with open(".\\data\\map_data\\daily_weather.json", "w") as file:
-        json.dump(json_ob, file)
+        json.dump(json_ob["daily"], file)
 
 
 def weather_code_map():
@@ -33,3 +33,6 @@ def trasform_code_table():
     df = df.rename(columns={"Unnamed: 1": "weather", "Unnamed: 2": "description"})
 
     df.to_csv(".\\data\\map_data\\wmo_code.csv", index=False)
+
+
+weather_daily_data()
