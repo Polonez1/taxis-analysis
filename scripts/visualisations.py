@@ -42,3 +42,14 @@ def show_profit_table(df: pd.DataFrame):
     plt.tight_layout()
 
     plt.show()
+
+
+def show_weather_bar(df):
+    plt.bar(df["weather"], df["passenger"], color="orange")
+    plt.xticks(rotation=15, ha="right", fontsize=6)
+
+    plt.title("Passenger by weather")
+    plt.xlabel("Weather")
+    plt.ylabel("Passenger sum")
+
+    plt.show()

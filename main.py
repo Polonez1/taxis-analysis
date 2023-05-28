@@ -49,7 +49,6 @@ def show_heatmap(month: str, by: str, date_range: tuple = (), **kwargs):
 
 def show_profit_table(month: str, date_range: tuple = ()):
     config.log
-    df = Data.load_data_frame(month=month)
 
     df = DPro.get_clear_dataframe(month=month)
 
@@ -68,3 +67,16 @@ def show_profit_table(month: str, date_range: tuple = ()):
     )
     logging.info(f"Data lenght: {len(df)}")
     vs.show_profit_table(distance_profit_analysis)
+
+
+def show_weather_visualisation(month: str, date_range: tuple = ()) -> plt.bar:
+    config.log
+
+    df = DPro.get_clear_dataframe(month=month)
+
+    if date_range != ():
+        df = DPro.filtered_by_date(df, date_range=date_range)
+        logging.info(f"Filtered date range: {date_range}")
+
+    df = DPro.group_by_weather(df)
+    vs.show_weather_bar(df)

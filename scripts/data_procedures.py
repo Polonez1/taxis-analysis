@@ -143,6 +143,11 @@ def group_by_time_weekdays(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
+def group_by_weather(df: pd.DataFrame):
+    df = df.groupby(["weather"], as_index=False)["passenger"].sum()
+    return df
+
+
 def create_pivot_table(
     df: pd.DataFrame, values: str, index="week_day", columns="3h_interval"
 ) -> pd.DataFrame:
