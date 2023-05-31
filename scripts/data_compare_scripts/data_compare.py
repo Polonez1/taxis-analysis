@@ -95,17 +95,16 @@ def compare_dataframe(df: pd.DataFrame, df1: pd.DataFrame) -> int:
 
 def compare_tables():
     original_data = get_full_original_data()
-
-    sns_data = load_seaborn_trip_data()
-    sns_data["passengers"] = sns_data["passengers"].astype("float64")
-    sns_data["payment"] = sns_data["payment"].str.lower()
-
     new_df = (
         original_data.pipe(DPro.join_payment_type)
         .pipe(DPro.join_zones)
         .pipe(select_data_range)
     )
     new_df["payment"] = new_df["payment"].str.lower()
+
+    sns_data = load_seaborn_trip_data()
+    sns_data["passengers"] = sns_data["passengers"].astype("float64")
+    sns_data["payment"] = sns_data["payment"].str.lower()
 
     df = new_df[sns_data.columns]
 
@@ -118,3 +117,6 @@ def compare_tables():
     logging.info(f"columns: {headers}")
     logging.info(f"congruent data: {congruent_data}")
     logging.info(f"missed data: {miss_data}")
+
+
+# pridėti prie run.

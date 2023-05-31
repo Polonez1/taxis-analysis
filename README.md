@@ -28,6 +28,9 @@ Run profit table
 Run bar visualisation by weather and passenger
 ```python run.py --run_weather_bar```
 
+Run data compare
+```python run.py --run_data_compare
+
 
 Goals:
 1. Calculate and find the most profitable taxi options

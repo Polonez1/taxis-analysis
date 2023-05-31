@@ -10,11 +10,14 @@ import matplotlib.pyplot as plt
 import sys
 
 sys.path.append(".\\scripts\\")
+sys.path.append(".\\scripts\\data_compare_scripts\\")
 
 import load_and_save_data as Data
 import data_procedures as DPro
 import calculate as calc
 import visualisations as vs
+import data_compare
+
 import config
 
 
@@ -80,3 +83,7 @@ def show_weather_visualisation(month: str, date_range: tuple = ()) -> plt.bar:
 
     df = DPro.group_by_weather(df)
     vs.show_weather_bar(df)
+
+
+def data_compare_run():
+    data_compare.compare_tables()
