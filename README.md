@@ -29,7 +29,7 @@ Run bar visualisation by weather and passenger
 ```python run.py --run_weather_bar```
 
 Run data compare
-```python run.py --run_data_compare
+```python run.py --run_data_compare```
 
 
 Goals:

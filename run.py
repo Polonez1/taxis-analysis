@@ -47,6 +47,7 @@ if __name__ == "__main__":
         logging.info(f"Data load...please wait")
         main.show_weather_visualisation(month=month, date_range=())
     elif args.run_data_compare:
+        logging.info("....>")
         main.data_compare_run()
 
     else:
