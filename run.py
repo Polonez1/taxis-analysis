@@ -21,21 +21,23 @@ if __name__ == "__main__":
         action="store_true",
         help="run bar visualisation",
     )
+
+    # ------Args and actions----------#
     parser.add_argument(
         "--action", choices=["show", "save"], help="choose action: show or save"
+    )
+
+    parser.add_argument("--month", type=str, help="month (Format: mm)")
+    parser.add_argument(
+        "--by", type=str, help="show by: tip, passenger, fare, profit_by_passenger"
     )
 
     args = parser.parse_args()
 
     if args.run_visualisation:
-        print("input month(Format: mm)")
-        month = input()
-        print("Show by: tip, passenger, fare, profit_by_passenger ")
-        by = input()
-        print(
-            "Filtered by date range (if pass, press Enter), Date range format: (yyyy-mm-dd, yyyy-mm-dd)"
-        )
-        date_range = input()
+        month = args.month
+        by = args.by
+        date_range = ()  # need fixed.
         logging.info(f"Data load...please wait")
         visual_object = main.call_heatmap_object(month=month, by=by, date_range=())
         if args.action == "show":
