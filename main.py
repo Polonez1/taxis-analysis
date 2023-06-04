@@ -80,7 +80,7 @@ def create_profit_table(month: str, date_range: tuple = ()) -> pd.DataFrame:
     # vs.show_profit_table(distance_profit_analysis)
 
 
-def show_weather_visualisation(month: str, date_range: tuple = ()) -> plt.bar:
+def create_weather_table(month: str, date_range: tuple = ()) -> plt.bar:
     config.log
 
     df = DPro.get_clear_dataframe(month=month)
@@ -90,7 +90,9 @@ def show_weather_visualisation(month: str, date_range: tuple = ()) -> plt.bar:
         logging.info(f"Filtered date range: {date_range}")
 
     df = DPro.group_by_weather(df)
-    vs.show_weather_bar(df)
+
+    return df
+    # vs.show_weather_bar(df)
 
 
 def data_compare_run():

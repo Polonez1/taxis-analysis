@@ -62,14 +62,16 @@ if __name__ == "__main__":
             )
 
     elif args.run_weather_bar:
-        print("input month(Format: mm)")
-        month = input()
-        print(
-            "Filtered by date range (if pass, press Enter), Date range format: (yyyy-mm-dd, yyyy-mm-dd)"
-        )
-        date_range = input()
+        month = args.month
+        date_range = ()
         logging.info(f"Data load...please wait")
-        main.show_weather_visualisation(month=month, date_range=())
+        weather_df = main.create_weather_table(month=month, date_range=())
+        if args.action == "show":
+            visualisations.show_weather_bar(weather_df)
+        elif args.action == "save":
+            weather_df.to_excel(
+                f"{config.EXCEL_OUTPUT_PATH}weather_table_month_{month}.xlsx"
+            )
     elif args.run_data_compare:
         logging.info("....>")
         main.data_compare_run()
