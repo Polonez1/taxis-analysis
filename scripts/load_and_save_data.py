@@ -70,3 +70,8 @@ def load_weather_name():
         data = pd.read_csv(file)
 
         return data
+
+
+def save_as_excel(df: pd.DataFrame, **kwargs):
+    file_name = "_".join([f"{key}_{value}" for key, value in kwargs.items()])
+    df.to_excel(f"{config.EXCEL_OUTPUT_PATH}table_{file_name}")

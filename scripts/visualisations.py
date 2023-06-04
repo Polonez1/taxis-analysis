@@ -2,6 +2,7 @@ import seaborn as sns
 import pandas as pd
 import data_procedures as Data
 import matplotlib.pyplot as plt
+import config
 
 
 def visual_hot_map(df: pd.DataFrame, title: str, **kwargs) -> sns.heatmap:
@@ -11,7 +12,7 @@ def visual_hot_map(df: pd.DataFrame, title: str, **kwargs) -> sns.heatmap:
     return ax
 
 
-def show_heatmap(df: pd.DataFrame, by: str, **kwargs) -> sns.heatmap:
+def create_heatmap_object(df: pd.DataFrame, by: str, **kwargs) -> plt.subplot:
     """get table or heatmap by passengers, fare, profit_by_passenger, tip
     Args:
         df (pd.DataFrame): df
@@ -53,3 +54,16 @@ def show_weather_bar(df):
     plt.ylabel("Passenger sum")
 
     plt.show()
+
+
+def show_visualization(plot_object: plt.subplot):
+    plot_object.get_figure()
+    plt.show()
+
+
+def save_visualisation_as_png(plot_object: plt.subplot, **kwargs):
+    file_name = "_".join([f"{key}_{value}" for key, value in kwargs.items()])
+
+    plot_object.figure.savefig(
+        f"{config.VISUALISATIONS_OUTPUT_PATH}visualisation_{file_name}.png"
+    )
