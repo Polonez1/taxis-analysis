@@ -20,13 +20,13 @@ Run cmd or powershell in the folder.
 
 Commands:
 Run data heatmap visualisation
-```python run.py --run_visualisation```
+```python run.py --run_visualisation --action [save, show] --month [from 01 to 12] --by [tip, fare, passenger, profit_by_passenger]```
 
 Run profit table
-```python run.py --run_table```
+```python run.py --run_table --action [save, show] --month [from 01 to 12]```
 
 Run bar visualisation by weather and passenger
-```python run.py --run_weather_bar```
+```python run.py --run_weather_bar --action [save, show] --month [from 01 to 12]```
 
 Run data compare
 ```python run.py --run_data_compare```
