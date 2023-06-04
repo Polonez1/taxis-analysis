@@ -2,6 +2,7 @@ import matplotlib
 import seaborn as sns
 import plotly.figure_factory as ff
 import logging
+import pandas as pd
 
 
 matplotlib.use("TkAgg")
@@ -54,7 +55,7 @@ def call_heatmap_object(
     return heat_map
 
 
-def show_profit_table(month: str, date_range: tuple = ()):
+def create_profit_table(month: str, date_range: tuple = ()) -> pd.DataFrame:
     config.log
 
     df = DPro.get_clear_dataframe(month=month)
@@ -73,7 +74,10 @@ def show_profit_table(month: str, date_range: tuple = ()):
         .pipe(calc.calculate_profit_by_hour)
     )
     logging.info(f"Data lenght: {len(df)}")
-    vs.show_profit_table(distance_profit_analysis)
+
+    return distance_profit_analysis
+
+    # vs.show_profit_table(distance_profit_analysis)
 
 
 def show_weather_visualisation(month: str, date_range: tuple = ()) -> plt.bar:

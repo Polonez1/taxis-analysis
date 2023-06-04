@@ -1,9 +1,11 @@
 import argparse
 import main
 import logging
+import pandas as pd
 
 import visualisations
 import load_and_save_data
+import config
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="get data visualisation")
@@ -11,8 +13,10 @@ if __name__ == "__main__":
         "--run_visualisation",
         action="store_true",
         help="run data visualisation",
-    )
+    )  # done
+
     parser.add_argument("--run_table", action="store_true", help="run profit table")
+
     parser.add_argument(
         "--run_weather_bar", action="store_true", help="run bar visualisation"
     )
@@ -37,7 +41,7 @@ if __name__ == "__main__":
     if args.run_visualisation:
         month = args.month
         by = args.by
-        date_range = ()  # need fixed.
+        date_range = ()  # fix
         logging.info(f"Data load...please wait")
         visual_object = main.call_heatmap_object(month=month, by=by, date_range=())
         if args.action == "show":
@@ -46,14 +50,17 @@ if __name__ == "__main__":
             visualisations.save_visualisation_as_png(visual_object, month=month, by=by)
 
     elif args.run_table:
-        print("input month(Format: mm)")
-        month = input()
-        print(
-            "Filtered by date range (if pass, press Enter), Date range format: (yyyy-mm-dd, yyyy-mm-dd)"
-        )
-        date_range = input()
+        month = args.month
+        date_range = ()  # fix
         logging.info(f"Data load...please wait")
-        main.show_profit_table(month=month, date_range=())
+        profit_table = main.create_profit_table(month=month, date_range=())
+        if args.action == "show":
+            visualisations.show_profit_table(profit_table)
+        elif args.action == "save":
+            profit_table.to_excel(
+                f"{config.EXCEL_OUTPUT_PATH}profit_exp_month_{month}.xlsx"
+            )
+
     elif args.run_weather_bar:
         print("input month(Format: mm)")
         month = input()
