@@ -21,7 +21,9 @@ import data_compare
 import config
 
 
-def show_heatmap(month: str, by: str, date_range: tuple = (), **kwargs):
+def call_heatmap_object(
+    month: str, by: str, date_range: tuple = (), **kwargs
+) -> plt.subplot:
     """This function creating sns.heatmap by tip, passenger, fare and profit_by_passenger
 
     Args:
@@ -43,11 +45,13 @@ def show_heatmap(month: str, by: str, date_range: tuple = (), **kwargs):
         .pipe(calc.calculate_passengers_fare_index)
     )
 
-    vs.show_heatmap(general_dataframe, by=f"{by}", **kwargs)
+    heat_map = vs.create_heatmap_object(general_dataframe, by=f"{by}", **kwargs)
     logging.info(f"Data shape: {df.shape}")
     logging.info(f"Data lenght: {len(general_dataframe)}")
 
-    plt.show(block=True)
+    # plt.show(block=True)
+
+    return heat_map
 
 
 def show_profit_table(month: str, date_range: tuple = ()):
@@ -87,3 +91,8 @@ def show_weather_visualisation(month: str, date_range: tuple = ()) -> plt.bar:
 
 def data_compare_run():
     data_compare.compare_tables()
+
+
+# heatmap = call_heatmap_object(month="05", by="tip")
+# vs.show_visualization(heatmap)
+# vs.save_visualisation_as_png(heatmap, month="05", by="tip")
