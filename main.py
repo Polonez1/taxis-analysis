@@ -23,7 +23,7 @@ import config
 
 
 def call_heatmap_object(
-    month: str, by: str, date_range: tuple = (), **kwargs
+    month: str, by: str, start_date="", end_date="", **kwargs
 ) -> plt.subplot:
     """This function creating sns.heatmap by tip, passenger, fare and profit_by_passenger
 
@@ -35,9 +35,9 @@ def call_heatmap_object(
 
     df = DPro.get_clear_dataframe(month=month)
 
-    if date_range != ():
-        df = DPro.filtered_by_date(df, date_range=date_range)
-        logging.info(f"Filtered date range: {date_range}")
+    if start_date != "" and end_date != "":
+        df = DPro.filtered_by_date(df, start_date=start_date, end_date=end_date)
+        logging.info(f"Filtered date range: {start_date}, {end_date}")
 
     general_dataframe = (
         df.pipe(DPro.add_week_day)
@@ -55,14 +55,14 @@ def call_heatmap_object(
     return heat_map
 
 
-def create_profit_table(month: str, date_range: tuple = ()) -> pd.DataFrame:
+def create_profit_table(month: str, start_date="", end_date="") -> pd.DataFrame:
     config.log
 
     df = DPro.get_clear_dataframe(month=month)
 
-    if date_range != ():
-        df = DPro.filtered_by_date(df, date_range=date_range)
-        logging.info(f"Filtered date range: {date_range}")
+    if start_date != "" and end_date != "":
+        df = DPro.filtered_by_date(df, start_date=start_date, end_date=end_date)
+        logging.info(f"Filtered date range: {start_date}, {end_date}")
 
     distance_profit_analysis = (
         df.pipe(DPro.distance_group_column)
@@ -80,14 +80,14 @@ def create_profit_table(month: str, date_range: tuple = ()) -> pd.DataFrame:
     # vs.show_profit_table(distance_profit_analysis)
 
 
-def create_weather_table(month: str, date_range: tuple = ()) -> plt.bar:
+def create_weather_table(month: str, start_date="", end_date="") -> plt.bar:
     config.log
 
     df = DPro.get_clear_dataframe(month=month)
 
-    if date_range != ():
-        df = DPro.filtered_by_date(df, date_range=date_range)
-        logging.info(f"Filtered date range: {date_range}")
+    if start_date != "" and end_date != "":
+        df = DPro.filtered_by_date(df, start_date=start_date, end_date=end_date)
+        logging.info(f"Filtered date range: {start_date}, {end_date}")
 
     df = DPro.group_by_weather(df)
 
@@ -99,6 +99,8 @@ def data_compare_run():
     data_compare.compare_tables()
 
 
-# heatmap = call_heatmap_object(month="05", by="tip")
-# vs.show_visualization(heatmap)
+heatmap = call_heatmap_object(
+    month="05", by="tip", start_date="2022-05-01", end_date="2022-05-10"
+)
+vs.show_visualization(heatmap)
 # vs.save_visualisation_as_png(heatmap, month="05", by="tip")

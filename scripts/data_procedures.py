@@ -65,7 +65,7 @@ def drop_unnecessary_columns(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def filtered_by_date(df: pd.DataFrame, date_range: tuple = ()) -> pd.DataFrame:
+def filtered_by_date(df: pd.DataFrame, start_date="", end_date="") -> pd.DataFrame:
     """filtered df by date
     min date: 2019-02-28
     max date: 2019-03-31
@@ -75,11 +75,11 @@ def filtered_by_date(df: pd.DataFrame, date_range: tuple = ()) -> pd.DataFrame:
     Returns:
         pd.DataFrame: new dataframe
     """
-    if date_range == ():
+    if start_date != "" and end_date != "":
         return df
     else:
-        start_date = date_range[0]
-        end_date = date_range[1]
+        start_date = start_date
+        end_date = end_date
         dt_range = (df["pickup"] >= start_date) & (df["pickup"] <= end_date)
         filtered_df = df.loc[dt_range]
         return filtered_df

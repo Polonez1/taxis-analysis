@@ -8,17 +8,25 @@ import load_and_save_data
 import config
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="get data visualisation")
+    parser = argparse.ArgumentParser(
+        description="get data visualisation by weeks name and time periods"
+    )
     parser.add_argument(
         "--run_visualisation",
         action="store_true",
         help="run data visualisation",
-    )  # done
-
-    parser.add_argument("--run_table", action="store_true", help="run profit table")
+    )
 
     parser.add_argument(
-        "--run_weather_bar", action="store_true", help="run bar visualisation"
+        "--run_table",
+        action="store_true",
+        help="get profit by hour table and other stats",
+    )
+
+    parser.add_argument(
+        "--run_weather_bar",
+        action="store_true",
+        help="get bar visualisation by weather",
     )
     parser.add_argument(
         "--run_data_compare",
@@ -35,13 +43,26 @@ if __name__ == "__main__":
     parser.add_argument(
         "--by", type=str, help="show by: tip, passenger, fare, profit_by_passenger"
     )
-
+    parser.add_argument(
+        "-sd",
+        type=str,
+        default="",
+        help="start_date: enter start date to filter. Format yyyy-mm-dd",
+    )
+    parser.add_argument(
+        "-ed",
+        type=str,
+        default="",
+        help="end_date: enter end date to filter. Format yyyy-mm-dd",
+    )
+    # start_date and end_date.
     args = parser.parse_args()
 
     if args.run_visualisation:
         month = args.month
         by = args.by
-        date_range = ()  # fix
+        start_date = args.start_date
+        end_date = args.end_date
         logging.info(f"Data load...please wait")
         visual_object = main.call_heatmap_object(month=month, by=by, date_range=())
         if args.action == "show":
