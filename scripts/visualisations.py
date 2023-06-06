@@ -1,7 +1,9 @@
 import seaborn as sns
 import pandas as pd
-import data_procedures as Data
 import matplotlib.pyplot as plt
+
+import data_procedures as Data
+
 import config
 
 

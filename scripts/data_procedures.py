@@ -1,6 +1,7 @@
 import pandas as pd
-import load_and_save_data as Data
 from datetime import datetime
+
+import load_and_save_data as Data
 
 
 def rename_columns(df: pd.DataFrame) -> pd.DataFrame:
