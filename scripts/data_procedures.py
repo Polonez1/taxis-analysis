@@ -1,7 +1,7 @@
 import pandas as pd
 from datetime import datetime
 
-import load_and_save_data as Data
+import load_and_save_data
 
 
 def rename_columns(df: pd.DataFrame) -> pd.DataFrame:
@@ -30,7 +30,7 @@ def join_zones(df: pd.DataFrame) -> pd.DataFrame:
     Returns:
         pd.DataFrame: new taxis table with zones
     """
-    zones_df = Data.load_zonemap_data()
+    zones_df = load_and_save_data.load_zonemap_data()
 
     id_to_location = zones_df.set_index("LocationID")[["Borough", "Zone"]]
 
@@ -45,7 +45,7 @@ def join_zones(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def join_payment_type(df: pd.DataFrame) -> pd.DataFrame:
-    payment_type = Data.load_payment_type_table()
+    payment_type = load_and_save_data.load_payment_type_table()
 
     id_to_type = payment_type.set_index("type_id")["type"]
     df["payment"] = df["payment_type"].map(id_to_type)
@@ -174,7 +174,7 @@ def add_date_column(df: pd.DataFrame):
 
 
 def join_weathercode(df: pd.DataFrame):
-    weather_df = Data.load_weather_data()
+    weather_df = load_and_save_data.load_weather_data()
     id_to_type = weather_df.set_index("time")["weathercode"]
     df["weatercode"] = df["date"].map(id_to_type)
 
@@ -182,7 +182,7 @@ def join_weathercode(df: pd.DataFrame):
 
 
 def join_weather_name(df: pd.DataFrame):
-    weather = Data.load_weather_name()
+    weather = load_and_save_data.load_weather_name()
 
     id_to_weathercode = weather.set_index("Code figure")["weather"]
     df["weather"] = df["weatercode"].map(id_to_weathercode)
@@ -201,7 +201,7 @@ def get_clear_dataframe(month: str, **kwargs) -> pd.DataFrame:
     Returns:
         pd.DataFrame: returned clear dataframe
     """
-    df = Data.load_data_frame(month=month, **kwargs)
+    df = load_and_save_data.load_data_frame(month=month, **kwargs)
 
     df = (
         df.pipe(rename_columns)

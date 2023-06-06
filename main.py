@@ -5,7 +5,7 @@ import logging
 import pandas as pd
 
 
-matplotlib.use("TkAgg")
+# matplotlib.use("TkAgg")
 import matplotlib.pyplot as plt
 
 import sys
@@ -13,10 +13,10 @@ import sys
 sys.path.append(".\\scripts\\")
 sys.path.append(".\\scripts\\data_compare_scripts\\")
 
-import load_and_save_data as Data
-import data_procedures as DPro
-import calculate as calc
-import visualisations as vs
+
+import data_procedures
+import calculate
+import visualisations
 import data_compare
 
 import config
@@ -33,20 +33,24 @@ def call_heatmap_object(
     """
     config.log
 
-    df = DPro.get_clear_dataframe(month=month)
+    df = data_procedures.get_clear_dataframe(month=month)
 
     if start_date != "" and end_date != "":
-        df = DPro.filtered_by_date(df, start_date=start_date, end_date=end_date)
+        df = data_procedures.filtered_by_date(
+            df, start_date=start_date, end_date=end_date
+        )
         logging.info(f"Filtered date range: {start_date}, {end_date}")
 
     general_dataframe = (
-        df.pipe(DPro.add_week_day)
-        .pipe(DPro.get_time_groups)
-        .pipe(DPro.group_by_time_weekdays)
-        .pipe(calc.calculate_passengers_fare_index)
+        df.pipe(data_procedures.add_week_day)
+        .pipe(data_procedures.get_time_groups)
+        .pipe(data_procedures.group_by_time_weekdays)
+        .pipe(calculate.calculate_passengers_fare_index)
     )
 
-    heat_map = vs.create_heatmap_object(general_dataframe, by=f"{by}", **kwargs)
+    heat_map = visualisations.create_heatmap_object(
+        general_dataframe, by=f"{by}", **kwargs
+    )
     logging.info(f"Data shape: {df.shape}")
     logging.info(f"Data lenght: {len(general_dataframe)}")
 
@@ -58,20 +62,22 @@ def call_heatmap_object(
 def create_profit_table(month: str, start_date="", end_date="") -> pd.DataFrame:
     config.log
 
-    df = DPro.get_clear_dataframe(month=month)
+    df = data_procedures.get_clear_dataframe(month=month)
 
     if start_date != "" and end_date != "":
-        df = DPro.filtered_by_date(df, start_date=start_date, end_date=end_date)
+        df = data_procedures.filtered_by_date(
+            df, start_date=start_date, end_date=end_date
+        )
         logging.info(f"Filtered date range: {start_date}, {end_date}")
 
     distance_profit_analysis = (
-        df.pipe(DPro.distance_group_column)
-        .pipe(calc.calculate_work_hours)
-        .pipe(calc.calculate_gasoline_consumption)
-        .pipe(calc.calculate_auto_utilization)
-        .pipe(DPro.group_by_distance)
-        .pipe(calc.calculate_total_profit)
-        .pipe(calc.calculate_profit_by_hour)
+        df.pipe(data_procedures.distance_group_column)
+        .pipe(calculate.calculate_work_hours)
+        .pipe(calculate.calculate_gasoline_consumption)
+        .pipe(calculate.calculate_auto_utilization)
+        .pipe(data_procedures.group_by_distance)
+        .pipe(calculate.calculate_total_profit)
+        .pipe(calculate.calculate_profit_by_hour)
     )
     logging.info(f"Data lenght: {len(df)}")
 
@@ -83,13 +89,15 @@ def create_profit_table(month: str, start_date="", end_date="") -> pd.DataFrame:
 def create_weather_table(month: str, start_date="", end_date="") -> plt.bar:
     config.log
 
-    df = DPro.get_clear_dataframe(month=month)
+    df = data_procedures.get_clear_dataframe(month=month)
 
     if start_date != "" and end_date != "":
-        df = DPro.filtered_by_date(df, start_date=start_date, end_date=end_date)
+        df = data_procedures.filtered_by_date(
+            df, start_date=start_date, end_date=end_date
+        )
         logging.info(f"Filtered date range: {start_date}, {end_date}")
 
-    df = DPro.group_by_weather(df)
+    df = data_procedures.group_by_weather(df)
 
     return df
     # vs.show_weather_bar(df)
@@ -97,10 +105,3 @@ def create_weather_table(month: str, start_date="", end_date="") -> plt.bar:
 
 def data_compare_run():
     data_compare.compare_tables()
-
-
-heatmap = call_heatmap_object(
-    month="05", by="tip", start_date="2022-05-01", end_date="2022-05-10"
-)
-vs.show_visualization(heatmap)
-# vs.save_visualisation_as_png(heatmap, month="05", by="tip")
