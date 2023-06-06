@@ -61,10 +61,12 @@ if __name__ == "__main__":
     if args.run_visualisation:
         month = args.month
         by = args.by
-        start_date = args.start_date
-        end_date = args.end_date
+        start_date = args.sd
+        end_date = args.ed
         logging.info(f"Data load...please wait")
-        visual_object = main.call_heatmap_object(month=month, by=by, date_range=())
+        visual_object = main.call_heatmap_object(
+            month=month, by=by, start_date=start_date, end_date=end_date
+        )
         if args.action == "show":
             visualisations.show_visualization(visual_object)
         elif args.action == "save":
@@ -72,9 +74,12 @@ if __name__ == "__main__":
 
     elif args.run_table:
         month = args.month
-        date_range = ()  # fix
+        start_date = args.sd
+        end_date = args.ed
         logging.info(f"Data load...please wait")
-        profit_table = main.create_profit_table(month=month, date_range=())
+        profit_table = main.create_profit_table(
+            month=month, start_date=start_date, end_date=end_date
+        )
         if args.action == "show":
             visualisations.show_profit_table(profit_table)
         elif args.action == "save":
@@ -84,9 +89,12 @@ if __name__ == "__main__":
 
     elif args.run_weather_bar:
         month = args.month
-        date_range = ()
+        start_date = args.sd
+        end_date = args.ed
         logging.info(f"Data load...please wait")
-        weather_df = main.create_weather_table(month=month, date_range=())
+        weather_df = main.create_weather_table(
+            month=month, start_date=start_date, end_date=end_date
+        )
         if args.action == "show":
             visualisations.show_weather_bar(weather_df)
         elif args.action == "save":

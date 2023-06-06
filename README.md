@@ -53,7 +53,12 @@ filter by date range
 ```-ed``` end_date
 format yyyy-MM-dd
 
+for example:
+Show data visualisation by month and time intervals and by passenger count
+```python run.py --run_visualisation --action show --month 08 --by tip```
 
+Show data visualisation by weather and passenger count
+```python run.py --run_weather_bar --action show --month 05 -sd 2023-05-01 -ed 2023-05-07```
 
 
 Goals:
