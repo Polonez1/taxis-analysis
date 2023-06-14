@@ -4,9 +4,9 @@ import os
 import logging
 import json
 
-import data_validation
-import category_and_dtypes as cat
-import config
+from scripts import data_validation
+from scripts import category_and_dtypes as cat
+from scripts import config
 
 config.log
 

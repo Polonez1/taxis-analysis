@@ -3,9 +3,9 @@ import main
 import logging
 import pandas as pd
 
-import visualisations
-import load_and_save_data
-import config
+from scripts import visualisations
+from scripts import load_and_save_data
+from scripts import config
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -44,13 +44,13 @@ if __name__ == "__main__":
         "--by", type=str, help="show by: tip, passenger, fare, profit_by_passenger"
     )
     parser.add_argument(
-        "-sd",
+        "-s",
         type=str,
         default="",
         help="start_date: enter start date to filter. Format yyyy-mm-dd",
     )
     parser.add_argument(
-        "-ed",
+        "-e",
         type=str,
         default="",
         help="end_date: enter end date to filter. Format yyyy-mm-dd",
@@ -61,8 +61,8 @@ if __name__ == "__main__":
     if args.run_visualisation:
         month = args.month
         by = args.by
-        start_date = args.sd
-        end_date = args.ed
+        start_date = args.s
+        end_date = args.e
         logging.info(f"Data load...please wait")
         visual_object = main.call_heatmap_object(
             month=month, by=by, start_date=start_date, end_date=end_date
@@ -74,8 +74,8 @@ if __name__ == "__main__":
 
     elif args.run_table:
         month = args.month
-        start_date = args.sd
-        end_date = args.ed
+        start_date = args.s
+        end_date = args.e
         logging.info(f"Data load...please wait")
         profit_table = main.create_profit_table(
             month=month, start_date=start_date, end_date=end_date
@@ -89,8 +89,8 @@ if __name__ == "__main__":
 
     elif args.run_weather_bar:
         month = args.month
-        start_date = args.sd
-        end_date = args.ed
+        start_date = args.s
+        end_date = args.e
         logging.info(f"Data load...please wait")
         weather_df = main.create_weather_table(
             month=month, start_date=start_date, end_date=end_date

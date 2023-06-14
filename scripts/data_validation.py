@@ -5,7 +5,7 @@ from datetime import datetime
 from pandera import dtypes
 import logging as log
 
-import config
+from scripts import config
 
 config.log
 

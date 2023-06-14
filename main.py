@@ -10,14 +10,15 @@ import matplotlib.pyplot as plt
 
 import sys
 
-sys.path.append(".\\scripts\\")
-sys.path.append(".\\scripts\\data_compare_scripts\\")
+# sys.path.append(".\\scripts\\")
+# sys.path.append(".\\scripts\\data_compare_scripts\\")
 
 
-import data_procedures
-import calculate
-import visualisations
-import data_compare
+from scripts import data_procedures
+from scripts import calculate
+
+from scripts import visualisations
+from scripts.data_compare_scripts import data_compare
 
 import config
 

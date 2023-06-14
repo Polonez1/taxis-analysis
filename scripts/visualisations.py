@@ -2,9 +2,9 @@ import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt
 
-import data_procedures as Data
+from scripts import data_procedures as Data
 
-import config
+from scripts import config
 
 
 def visual_hot_map(df: pd.DataFrame, title: str, **kwargs) -> sns.heatmap:
