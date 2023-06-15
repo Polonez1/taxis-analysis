@@ -2,7 +2,6 @@ pandas
 seaborn
 numpy
 matplotlib
-logging
 pandera
 argparse
 datetime
