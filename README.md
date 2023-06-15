@@ -49,8 +49,8 @@ choose what you want to count
 ```--by [tip, fare, passenger, profit_by_passenger]```
 
 filter by date range
-```-sd``` start_date
-```-ed``` end_date
+```-s``` start_date
+```-e``` end_date
 format yyyy-MM-dd
 
 for example:
@@ -58,7 +58,7 @@ Show data visualisation by month and time intervals and by passenger count
 ```python run.py --run_visualisation --action show --month 08 --by tip```
 
 Show data visualisation by weather and passenger count
-```python run.py --run_weather_bar --action show --month 05 -sd 2023-05-01 -ed 2023-05-07```
+```python run.py --run_weather_bar --action show --month 05 -s 2023-05-01 -e 2023-05-07```
 
 
 Goals:
