@@ -5,3 +5,5 @@ matplotlib
 pandera
 argparse
 datetime
+plotly
+psutil

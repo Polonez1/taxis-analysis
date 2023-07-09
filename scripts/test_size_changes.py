@@ -2,9 +2,7 @@ import pandas as pd
 import logging
 import psutil
 
-from script import category_and_dtypes as cat
-
-
+from scripts import category_and_dtypes as cat
 from scripts import config
 
 config.log
